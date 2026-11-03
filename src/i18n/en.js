@@ -1,6 +1,6 @@
 export default {
   nav: { label: 'Main', book: 'Book a seat', times: 'Bus times', tickets: 'My tickets' },
-  footer: 'Demo version: timetables and bus locations are simulated.',
+  footer: 'Demo version: timetables and bus locations are simulated, and no real SMS or payments are made. Please do not enter real personal details.',
   language: 'Language',
   notFound: { title: 'Page not found', back: 'Back to search' },
   common: { retry: 'Try again', backToTickets: '← My tickets', seatList: 'Seat {seats}' },
@@ -143,7 +143,7 @@ export default {
   },
   payTest: {
     title: 'Test payment',
-    text: 'This page only exists in dev mode. No real money moves.',
+    text: 'This page only exists in demo mode. No real money moves.',
     amount: 'Amount: {amount}',
     success: 'Simulate successful payment',
     fail: 'Simulate failed payment',
@@ -192,7 +192,7 @@ export default {
     sending: 'Sending…',
     sentTo: 'Code sent to',
     change: 'Change number',
-    devCode: 'Dev mode, no SMS sent. Your code is',
+    devCode: 'Demo mode, no SMS sent. Your code is',
     code: '6-digit code',
     check: 'Verify number',
     checking: 'Checking…',

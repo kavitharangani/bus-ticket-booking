@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: bus-ticket-booking
+    runtime: node
+    plan: free
+    # Vite is a dev dependency, and the host would otherwise skip it during the build.
+    buildCommand: npm ci --include=dev && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: 20.17.0
+      - key: DEMO_MODE
+        value: "1"
+      - key: TRUST_PROXY
+        value: "1"

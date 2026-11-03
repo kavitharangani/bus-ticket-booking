@@ -106,7 +106,7 @@ export function createApp(db, { now, sms, maxCodesPerHour, payments = null } = {
     })
   }
 
-  // Stands in for the payment page. This route only exists in dev mode.
+  // Stands in for the payment page. This route only exists in dev and demo mode.
   if (payments?.isTest) {
     api.post('/payments/test/:ref', limitWrites, requirePhone, (req, res) => {
       const booking = service.getForPhone(req.params.ref, req.phone)

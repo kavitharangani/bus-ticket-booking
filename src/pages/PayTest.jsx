@@ -5,7 +5,7 @@ import { fmtMoney, useT } from '../i18n/index.js'
 import { fetchBooking, simulateTestPayment } from '../lib/bookings.js'
 import { useLoad } from '../lib/useLoad.js'
 
-// Stands in for the PayHere page in dev mode. The server has no route behind it in production.
+// Stands in for the PayHere page in dev and demo mode. The server has no route behind it otherwise.
 export default function PayTest() {
   const t = useT()
   const { ref } = useParams()

@@ -56,7 +56,7 @@ function createTextLkSender({ TEXTLK_API_TOKEN: token, TEXTLK_SENDER_ID: senderI
   }
 }
 
-// The console sender shows codes to anyone, so it only ever runs in dev mode.
+// The console sender shows codes to anyone, so it only ever runs in dev or demo mode.
 export function createSmsSender(env, { dev }) {
   const provider = env.SMS_PROVIDER || (dev ? 'console' : '')
   if (provider === 'console' && dev) return createConsoleSender()

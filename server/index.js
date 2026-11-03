@@ -18,8 +18,10 @@ const distDir = fileURLToPath(new URL('../dist', import.meta.url))
 let sms
 let payments
 try {
-  sms = createSmsSender(process.env, { dev })
-  payments = createPaymentGateway(process.env, { dev })
+  // Demo mode shows login codes on screen and fakes payments, so it is never on unless asked for.
+  const testServices = dev || process.env.DEMO_MODE === '1'
+  sms = createSmsSender(process.env, { dev: testServices })
+  payments = createPaymentGateway(process.env, { dev: testServices })
 } catch (error) {
   console.error(error.message)
   process.exit(1)

@@ -24,7 +24,13 @@ npm run build
 npm start
 ```
 
-The production server won't start until an SMS provider is set, so login codes are never shown on screen.
+The production server won't start until an SMS provider is set, so login codes are never shown on screen. The only exception is demo mode, below.
+
+## Deploy a demo
+
+`DEMO_MODE=1` runs the production server without real SMS or payments: login codes appear on screen and a test page replaces the payment page. Anyone can verify any number in this mode, so use it only for demos, never for real bookings.
+
+To deploy on [Render](https://render.com), choose **New > Blueprint** and select this repository. `render.yaml` sets up the rest. On Render's free plan, the app sleeps when idle and the first visit afterwards takes about a minute. Its disk is also temporary, so bookings are lost whenever the app restarts.
 
 ## Settings
 
@@ -39,6 +45,7 @@ The production server won't start until an SMS provider is set, so login codes a
 | `PUBLIC_URL` | With PayHere | Your site's public address, like `https://example.com`. PayHere must be able to reach it |
 | `PAYHERE_SANDBOX` | No | Set to `1` to use PayHere's sandbox instead of real money |
 | `TRUST_PROXY` | Behind a hosting proxy | Number of proxies in front of the app, so rate limits see the visitor's address |
+| `DEMO_MODE` | No | Set to `1` for a demo site, as described above |
 | `PORT` | No | Default 3001 |
 | `DB_PATH` | No | Default `server/data/buslanka.db` |
 | `TZ` | No | Default `Asia/Colombo` |
