@@ -1,6 +1,8 @@
 import { hasTranslation, translate } from '../i18n/index.js'
 import { getSession, setSession } from './session.js'
 
+export const BROWSER_DEMO = import.meta.env.VITE_BROWSER_DEMO === '1'
+
 export class ApiError extends Error {
   constructor(message, status, data) {
     super(message)
@@ -15,12 +17,7 @@ function errorMessage(data) {
   return translate(key, { ...data, seats: data.conflicts?.join(', ') })
 }
 
-async function request(path, body) {
-  const token = getSession()?.token
-  const headers = {
-    ...(token ? { Authorization: `Bearer ${token}` } : {}),
-    ...(body === undefined ? {} : { 'Content-Type': 'application/json' }),
-  }
+async function callServer(path, body, headers) {
   let response
   try {
     response = await fetch(`/api${path}`, body === undefined
@@ -29,10 +26,21 @@ async function request(path, body) {
   } catch {
     throw new ApiError(translate('errors.no_connection'), 0)
   }
-  const data = await response.json().catch(() => null)
+  return { status: response.status, data: await response.json().catch(() => null) }
+}
+
+async function request(path, body) {
+  const token = getSession()?.token
+  const headers = {
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    ...(body === undefined ? {} : { 'Content-Type': 'application/json' }),
+  }
+  const { status, data } = BROWSER_DEMO
+    ? (await import('./demoApi.js')).handleDemoRequest(path, body, token)
+    : await callServer(path, body, headers)
   // Only drop the session if this request used it, in case a newer one started meanwhile.
-  if (response.status === 401 && token && getSession()?.token === token) setSession(null)
-  if (!response.ok || data === null) throw new ApiError(errorMessage(data), response.status, data)
+  if (status === 401 && token && getSession()?.token === token) setSession(null)
+  if (status >= 400 || data === null) throw new ApiError(errorMessage(data), status, data)
   return data
 }
 
@@ -52,9 +60,12 @@ export function signOut() {
   // Forget the session here first, so this device is signed out even if the server can't be reached.
   const token = getSession()?.token
   setSession(null)
-  if (token) {
-    fetch('/api/auth/logout', { method: 'POST', headers: { Authorization: `Bearer ${token}` } }).catch(() => {})
+  if (!token) return
+  if (BROWSER_DEMO) {
+    import('./demoApi.js').then(({ handleDemoRequest }) => handleDemoRequest('/auth/logout', {}, token))
+    return
   }
+  fetch('/api/auth/logout', { method: 'POST', headers: { Authorization: `Bearer ${token}` } }).catch(() => {})
 }
 
 export async function fetchTakenSeats(tripId, date) {

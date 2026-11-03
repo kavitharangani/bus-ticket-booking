@@ -48,7 +48,7 @@ describe('coverage', () => {
 
   it('has text for every error code the server can send', async () => {
     const { readFileSync } = await import('node:fs')
-    const source = ['server/bookings.js', 'server/auth.js', 'server/app.js', 'shared/booking-rules.js']
+    const source = ['server/bookings.js', 'server/auth.js', 'server/app.js', 'shared/booking-rules.js', 'src/lib/demoApi.js']
       .map((path) => readFileSync(path, 'utf8'))
       .join('\n')
     const codes = [

@@ -9,6 +9,7 @@
     "dev:web": "vite",
     "start": "node server/index.js",
     "build": "vite build",
+    "build:pages": "cross-env VITE_BASE=/bus-ticket-booking/ VITE_BROWSER_DEMO=1 vite build && node scripts/pages-fallback.js",
     "preview": "vite preview",
     "test": "vitest run"
   },
@@ -23,6 +24,7 @@
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.4",
     "concurrently": "^9.2.5",
+    "cross-env": "^7.0.3",
     "vite": "^6.0.0",
     "vitest": "^3.0.0"
   }

@@ -26,7 +26,11 @@ npm start
 
 The production server won't start until an SMS provider is set, so login codes are never shown on screen. The only exception is demo mode, below.
 
-## Deploy a demo
+## GitHub Pages demo
+
+GitHub Pages can't run the server, so `npm run build:pages` builds a browser-only demo. `src/lib/demoApi.js` answers requests in place of the API, and bookings stay in the visitor's browser, so seats aren't shared between visitors. Login codes appear on screen, and no real SMS or payments are made. `.github/workflows/pages.yml` publishes it on each push to `main`.
+
+## Deploy a demo with the real server
 
 `DEMO_MODE=1` runs the production server without real SMS or payments: login codes appear on screen and a test page replaces the payment page. Anyone can verify any number in this mode, so use it only for demos, never for real bookings.
 

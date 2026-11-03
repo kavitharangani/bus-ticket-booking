@@ -1,6 +1,7 @@
 export default {
   nav: { label: 'Main', book: 'Book a seat', times: 'Bus times', tickets: 'My tickets' },
   footer: 'Demo version: timetables and bus locations are simulated, and no real SMS or payments are made. Please do not enter real personal details.',
+  footerBrowser: 'Bookings are saved only in this browser.',
   language: 'Language',
   notFound: { title: 'Page not found', back: 'Back to search' },
   common: { retry: 'Try again', backToTickets: '← My tickets', seatList: 'Seat {seats}' },

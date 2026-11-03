@@ -1,6 +1,7 @@
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { BusIcon } from './Icons.jsx'
 import { LANGUAGES, setLanguage, useLanguage, useT } from '../i18n/index.js'
+import { BROWSER_DEMO } from '../lib/bookings.js'
 
 function LanguageSwitch() {
   const t = useT()
@@ -47,7 +48,10 @@ export default function Layout() {
           <Outlet />
         </div>
       </main>
-      <footer className="footer">{t('footer')}</footer>
+      <footer className="footer">
+        {t('footer')}
+        {BROWSER_DEMO && ` ${t('footerBrowser')}`}
+      </footer>
     </div>
   )
 }
