@@ -2,6 +2,10 @@
 
 App for booking bus seats online and checking when a bus will arrive. Built with React, Express and SQLite.
 
+**Live demo: [kavitharangani.github.io/bus-ticket-booking](https://kavitharangani.github.io/bus-ticket-booking/)**
+
+The live demo runs entirely in the browser. Bookings stay on your device, and no real SMS or payments are made.
+
 ## Run
 
 Needs Node.js 20 or newer.
